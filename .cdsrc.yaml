@@ -23,7 +23,7 @@ requires:
       credentials:
         url: db.sqlite
     auth:
-      kind: mocked
+      kind: dummy
       users:
         alice:
           tenant: t1
