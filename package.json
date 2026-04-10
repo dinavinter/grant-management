@@ -94,6 +94,7 @@
     "compile:java": "cds compile --to java",
     "compile:ts": "cds compile --to ts",
     "dev": "npx cds-tsx watch",
+    "dev:docs": "npm run dev -w docs",
     "test:auth": "npx cds bind --profile hybrid --exec -- node ./tests/auth.spec.js",
     "test": "node --import tsx --test --test-concurrency=1 --experimental-vm-modules ./test/*.test.ts",
     "test:oauth": "node --import tsx --test --test-concurrency=1 --experimental-vm-modules ./test/oauth-*.test.ts",

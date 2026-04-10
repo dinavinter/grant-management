@@ -47,7 +47,7 @@ export default class Service extends cds.ApplicationService {
       // If grant_id still not a string, resolve from AuthorizationRequests(request_ID)
       if ((!d.grant_id || typeof d.grant_id !== "string") && d.request_ID) {
         try {
-          const reqRec = await this.read(AuthorizationRequests, d.request_ID);
+          const reqRec = await this.read(AuthorizationRequests, d.request_ID) as any;
           if (reqRec?.grant_id) d.grant_id = reqRec.grant_id;
         } catch { /* ignore */ }
       }

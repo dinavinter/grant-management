@@ -64,7 +64,7 @@ export async function POST(
       );
       if (existingGrant) {
         await cds.run(
-          cds.ql.UPDATE("sap.scai.grants.Grants")
+          cds.ql.UPDATE.entity("sap.scai.grants.Grants")
             .set({ scope: aggregatedScope, status: "active", actor: actor })
             .where({ id: grantId })
         );

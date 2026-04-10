@@ -1,0 +1,28 @@
+{
+  "include": [
+    "**/*",
+    "**/.server/**/*",
+    ".react-router/types/**/*"
+  ],
+  "exclude": [
+    "build",
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "lib": ["es2022", "DOM", "DOM.Iterable"],
+    "types": ["node", "vite/client"],
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "target": "ES2022",
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "paths": {
+      "~/*": ["./app/*"]
+    }
+  }
+}
