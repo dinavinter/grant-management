@@ -2,6 +2,7 @@
 // For more information, see: https://aspire.dev
 
 import { spawn } from "node:child_process";
+import { join } from "node:path";
 import { createBuilder } from "./.modules/aspire.js";
 
 const builder = await createBuilder();
@@ -25,6 +26,7 @@ const effectiveKubeconfig =
 const enableApprouter =
   process.env.ASPIRE_ENABLE_APP_ROUTER !== "0" &&
   process.env.ASPIRE_ENABLE_APPROUTER !== "0";
+const enablePortal = process.env.ASPIRE_ENABLE_PORTAL === "1";
 
 async function runCommand(
   command: string,
@@ -138,31 +140,34 @@ const cds = await builder
   //   }
   // ]
 
-const approuter =  await builder
+let approuter;
+
+if (enableApprouter) {
+  approuter = await builder
       .addExecutable("approuter", "npm", rootDir, ["run", approuterRunScript])
       .withHttpEndpoint({ env: "PORT", port: 9000, isProxied: false })
       .withExternalHttpEndpoints()
-      .withReference(cds)
       .withEnvironment("NODE_ENV", "development")
       .withEnvironment("KUBECONFIG", effectiveKubeconfig)
-      .waitFor(cds)
+      .waitFor(cds);
+}
 
-  const portal = await builder
-    .addExecutable("portal", "npm", rootDir, ["run", portalRunScript, "-w", "portal"])
+let portal;
+
+if (enablePortal) {
+  const portalDir = join(rootDir, "app", "portal");
+  portal = await builder
+    .addExecutable("portal", "npm", portalDir, ["run", portalRunScript])
     .withHttpEndpoint({ env: "PORT", port: 3000, isProxied: false })
     .withExternalHttpEndpoints()
-    
     .withEnvironment("NODE_ENV", "development")
     .withEnvironment("CDS_URL", "http://localhost:4004")
     .withEnvironment("KUBECONFIG", effectiveKubeconfig)
-    .withReference(cds)
     .waitFor(cds);
+}
 
-
-    await approuter.withReference(portal, {
-      name: "portal",
-      optional: true,
-    });
-
+if (approuter && portal) {
+  approuter.waitFor(portal);
+}
 
 await builder.build().run();
