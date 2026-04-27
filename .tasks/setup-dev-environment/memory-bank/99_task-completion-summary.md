@@ -13,10 +13,12 @@ The local development environment is set up and running with CDS, approuter, and
 
 - Dependencies are installed for the root project and `app/portal`.
 - Typed CDS model files were generated with `npx cds-typer srv --outputDirectory @cds-models --targetModuleType esm`.
-- CDS runs with `ASPIRE_LOCAL_ONLY=1 SKIP_BIND=1 npm run serve:cds:local`.
-- Approuter runs with `ASPIRE_LOCAL_ONLY=1 SKIP_BIND=1 npm run serve:approuter:local`.
-- Portal runs with `CDS_URL=http://localhost:4004 npm run dev` from `app/portal`.
-- Browser walkthrough artifact: `/opt/cursor/artifacts/local_dev_environment_walkthrough.mp4`.
+- Aspire CLI is installed at `$HOME/.aspire/bin/aspire`.
+- Aspire AppHost runs with `ASPIRE_LOCAL_ONLY=1 SKIP_BIND=1 ASPIRE_ENABLE_PORTAL=1 aspire run --detach --format Json`.
+- Aspire reports `cds`, `approuter`, and `portal` resources as healthy.
+- Browser walkthrough artifacts:
+  - `/opt/cursor/artifacts/local_dev_environment_walkthrough.mp4`
+  - `/opt/cursor/artifacts/aspire_host_local_stack_walkthrough.mp4`
 
 ## Follow-up
 

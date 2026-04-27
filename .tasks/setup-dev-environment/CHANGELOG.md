@@ -30,3 +30,12 @@ Chronological record of setup actions and decisions.
 - Started portal with `CDS_URL=http://localhost:4004 npm run dev` from `app/portal`.
 - Verified HTTP responses from CDS, approuter, portal, and the CDS SSE endpoint.
 - Captured browser walkthrough artifact at `/opt/cursor/artifacts/local_dev_environment_walkthrough.mp4`.
+
+### 2026-04-27 - Aspire AppHost verified
+
+- Installed Aspire CLI using the same install script as CI.
+- Fixed `apphost.ts` to avoid unsupported `withReference` calls between executable resources.
+- Fixed portal orchestration to run from `app/portal` and honor `ASPIRE_ENABLE_PORTAL=1`.
+- Started Aspire with `ASPIRE_LOCAL_ONLY=1 SKIP_BIND=1 ASPIRE_ENABLE_PORTAL=1 aspire run --detach --format Json`.
+- Verified `aspire ps --format Json --resources` reports `cds`, `approuter`, and `portal` as healthy.
+- Captured browser walkthrough artifact at `/opt/cursor/artifacts/aspire_host_local_stack_walkthrough.mp4`.
